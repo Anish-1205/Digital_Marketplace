@@ -3,6 +3,7 @@ const { protect, authorize } = require("../middleware/auth");
 const controller = require("../controllers/entrepreneurController");
 
 router.get("/", controller.getAll);
+router.get("/me", protect, authorize("entrepreneur", "admin"), controller.getMe);
 router.get("/:id", controller.getById);
 router.post("/", protect, authorize("entrepreneur", "admin"), controller.create);
 router.patch("/:id", protect, authorize("entrepreneur", "admin"), controller.update);

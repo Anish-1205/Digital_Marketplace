@@ -23,3 +23,8 @@ exports.metrics = async (req, res) => {
     }
   });
 };
+
+exports.listEntrepreneurs = async (req, res) => {
+  const data = await Entrepreneur.find({ isApproved: false }).populate("user", "name email");
+  res.json({ data });
+};

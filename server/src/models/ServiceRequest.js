@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { SERVICE_REQUEST_STATUSES } = require("../utils/constants");
 
 const serviceRequestSchema = new mongoose.Schema(
   {
@@ -9,8 +10,8 @@ const serviceRequestSchema = new mongoose.Schema(
     priceOffer: { type: Number, required: true },
     status: {
       type: String,
-      enum: ["pending", "accepted", "rejected", "completed"],
-      default: "pending"
+      enum: Object.values(SERVICE_REQUEST_STATUSES),
+      default: SERVICE_REQUEST_STATUSES.PENDING
     }
   },
   { timestamps: true }

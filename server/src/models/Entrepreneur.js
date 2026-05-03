@@ -16,4 +16,7 @@ const entrepreneurSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+entrepreneurSchema.index({ category: 1 });
+entrepreneurSchema.index({ location: 1 });
+
 module.exports = mongoose.model("Entrepreneur", entrepreneurSchema);

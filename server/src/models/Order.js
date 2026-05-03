@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { ORDER_STATUSES } = require("../utils/constants");
 
 const orderSchema = new mongoose.Schema(
   {
@@ -7,8 +8,8 @@ const orderSchema = new mongoose.Schema(
     quantity: { type: Number, default: 1 },
     status: {
       type: String,
-      enum: ["placed", "confirmed", "shipped", "delivered", "cancelled"],
-      default: "placed"
+      enum: Object.values(ORDER_STATUSES),
+      default: ORDER_STATUSES.PLACED
     }
   },
   { timestamps: true }
