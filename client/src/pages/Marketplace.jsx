@@ -59,13 +59,19 @@ export default function Marketplace() {
   const entrepreneurTotalPages = Math.ceil(entrepreneurMeta.total / ENTREPRENEUR_LIMIT) || 1;
   const productTotalPages = Math.ceil(productMeta.total / PRODUCT_LIMIT) || 1;
 
+  const updateFilters = (nextFilters) => {
+    setFilters(nextFilters);
+    setEntrepreneurPage(0);
+    setProductPage(0);
+  };
+
   return (
     <section className="container mx-auto px-4 py-12 space-y-10">
       <div className="bg-white p-4 rounded-xl shadow-sm flex flex-wrap gap-4">
         <select
           className="border rounded-lg px-3 py-2"
           value={filters.category}
-          onChange={(e) => setFilters({ ...filters, category: e.target.value })}
+          onChange={(e) => updateFilters({ ...filters, category: e.target.value })}
         >
           <option value="">All categories</option>
           {categories.map((category) => (
@@ -79,21 +85,21 @@ export default function Marketplace() {
           placeholder="Location"
           className="border rounded-lg px-3 py-2"
           value={filters.location}
-          onChange={(e) => setFilters({ ...filters, location: e.target.value })}
+          onChange={(e) => updateFilters({ ...filters, location: e.target.value })}
         />
         <input
           type="number"
           placeholder="Min price"
           className="border rounded-lg px-3 py-2"
           value={filters.minPrice}
-          onChange={(e) => setFilters({ ...filters, minPrice: e.target.value })}
+          onChange={(e) => updateFilters({ ...filters, minPrice: e.target.value })}
         />
         <input
           type="number"
           placeholder="Max price"
           className="border rounded-lg px-3 py-2"
           value={filters.maxPrice}
-          onChange={(e) => setFilters({ ...filters, maxPrice: e.target.value })}
+          onChange={(e) => updateFilters({ ...filters, maxPrice: e.target.value })}
         />
       </div>
 

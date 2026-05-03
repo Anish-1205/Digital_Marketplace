@@ -1,6 +1,6 @@
 const Entrepreneur = require("../models/Entrepreneur");
 const { ROLES } = require("../utils/constants");
-const { sanitizeString } = require("../utils/validation");
+const { sanitizeString, escapeRegex } = require("../utils/validation");
 
 exports.getAll = async (req, res) => {
   const filters = { isApproved: true };
@@ -8,7 +8,7 @@ exports.getAll = async (req, res) => {
   const location = sanitizeString(req.query.location);
 
   if (category) filters.category = category;
-  if (location) filters.location = new RegExp(location, "i");
+  if (location) filters.location = new RegExp(escapeRegex(location), "i");
 
   const minPrice = Number(req.query.minPrice);
   const maxPrice = Number(req.query.maxPrice);
