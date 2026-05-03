@@ -1,0 +1,12 @@
+{
+  "name": "digital_marketplace",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm --prefix server run dev\" \"npm --prefix client run dev\"",
+    "start": "npm --prefix server start",
+    "install-all": "npm install --workspaces"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.1"
+  }
+}
