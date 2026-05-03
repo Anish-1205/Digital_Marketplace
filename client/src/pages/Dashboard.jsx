@@ -86,9 +86,7 @@ export default function Dashboard() {
       <h2 className="text-2xl font-semibold">Dashboard</h2>
       <p className="text-sm text-gray-600">Welcome {user?.name}</p>
 
-      {loading && (
-        <div className="h-40 bg-gray-100 animate-pulse rounded-xl" />
-      )}
+      {loading && <div className="h-40 bg-gray-100 animate-pulse rounded-xl" />}
       {error && <p className="text-sm text-red-500">{error}</p>}
       {actionError && <p className="text-sm text-red-500">{actionError}</p>}
 
@@ -99,10 +97,7 @@ export default function Dashboard() {
             <span className="text-sm text-gray-600">
               Availability: {entrepreneur.availability}
             </span>
-            <button
-              className="px-4 py-2 rounded-lg border"
-              onClick={toggleAvailability}
-            >
+            <button className="px-4 py-2 rounded-lg border" onClick={toggleAvailability}>
               Toggle Availability
             </button>
             <span className="text-sm font-semibold text-indigo-600">
@@ -117,7 +112,7 @@ export default function Dashboard() {
           <h3 className="font-semibold">Service Requests</h3>
           <div className="space-y-2 mt-3">
             {serviceRequests.length === 0 && (
-              <p className="text-sm text-gray-500">No service requests yet.</p>
+              <p className="text-sm text-gray-500">No results found.</p>
             )}
             {serviceRequests.map((request) => (
               <div key={request._id} className="bg-white p-3 rounded-lg shadow-sm">
@@ -149,7 +144,7 @@ export default function Dashboard() {
         <div>
           <h3 className="font-semibold">Orders</h3>
           <div className="space-y-2 mt-3">
-            {orders.length === 0 && <p className="text-sm text-gray-500">No orders yet.</p>}
+            {orders.length === 0 && <p className="text-sm text-gray-500">No results found.</p>}
             {orders.map((order) => (
               <div key={order._id} className="bg-white p-3 rounded-lg shadow-sm">
                 <p className="text-sm">Product: {order.product?.name}</p>

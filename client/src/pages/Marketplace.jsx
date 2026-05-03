@@ -116,6 +116,9 @@ export default function Marketplace() {
                 <EntrepreneurCard key={entrepreneur._id} entrepreneur={entrepreneur} />
               ))}
             </div>
+            {entrepreneurs.length === 0 && (
+              <p className="text-sm text-gray-500 mt-4">No results found.</p>
+            )}
             <div className="flex items-center gap-3 mt-4">
               <button
                 className="px-3 py-1 rounded border disabled:opacity-50"
@@ -156,6 +159,9 @@ export default function Marketplace() {
                 <ProductCard key={product._id} product={product} />
               ))}
             </div>
+            {products.length === 0 && (
+              <p className="text-sm text-gray-500 mt-4">No results found.</p>
+            )}
             <div className="flex items-center gap-3 mt-4">
               <button
                 className="px-3 py-1 rounded border disabled:opacity-50"

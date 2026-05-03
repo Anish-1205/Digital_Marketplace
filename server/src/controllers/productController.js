@@ -1,11 +1,12 @@
 const Product = require("../models/Product");
 const Entrepreneur = require("../models/Entrepreneur");
 const { ROLES } = require("../utils/constants");
-const { isNonEmptyString, isPositiveNumber } = require("../utils/validation");
+const { isNonEmptyString, isPositiveNumber, sanitizeString } = require("../utils/validation");
 
 exports.getAll = async (req, res) => {
   const filters = {};
-  if (req.query.category) filters.category = req.query.category;
+  const category = sanitizeString(req.query.category);
+  if (category) filters.category = category;
 
   const minPrice = Number(req.query.minPrice);
   const maxPrice = Number(req.query.maxPrice);
@@ -19,7 +20,7 @@ exports.getAll = async (req, res) => {
   const skip = Number(req.query.skip) || 0;
 
   const [data, total] = await Promise.all([
-    Product.find(filters).populate("entrepreneur").skip(skip).limit(limit),
+    Product.find(filters).populate("entrepreneur").sort({ createdAt: -1 }).skip(skip).limit(limit),
     Product.countDocuments(filters)
   ]);
 

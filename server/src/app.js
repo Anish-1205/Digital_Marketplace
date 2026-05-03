@@ -8,19 +8,28 @@ const serviceRequestRoutes = require("./routes/serviceRequests");
 const orderRoutes = require("./routes/orders");
 const reviewRoutes = require("./routes/reviews");
 const adminRoutes = require("./routes/admin");
+const authRateLimit = require("./middleware/rateLimit");
 const { notFound, errorHandler } = require("./middleware/error");
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: ["http://localhost:5173"],
+    credentials: true
+  })
+);
 app.use(express.json());
-app.use(morgan("dev"));
+
+if (process.env.NODE_ENV === "development") {
+  app.use(morgan("dev"));
+}
 
 app.get("/", (req, res) => {
   res.json({ message: "HunarHub API running" });
 });
 
-app.use("/api/auth", authRoutes);
+app.use("/api/auth", authRateLimit, authRoutes);
 app.use("/api/entrepreneurs", entrepreneurRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/service-requests", serviceRequestRoutes);

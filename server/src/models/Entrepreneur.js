@@ -2,7 +2,12 @@ const mongoose = require("mongoose");
 
 const entrepreneurSchema = new mongoose.Schema(
   {
-    user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+      unique: true
+    },
     businessName: { type: String, required: true },
     category: { type: String, required: true },
     location: { type: String, required: true },

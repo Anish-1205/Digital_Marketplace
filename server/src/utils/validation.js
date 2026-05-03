@@ -11,9 +11,12 @@ const isValidDate = (value) => {
   return !Number.isNaN(date.getTime());
 };
 
+const sanitizeString = (val) => (typeof val === "string" ? val.trim() : "");
+
 module.exports = {
   isEmailValid,
   isNonEmptyString,
   isPositiveNumber,
-  isValidDate
+  isValidDate,
+  sanitizeString
 };

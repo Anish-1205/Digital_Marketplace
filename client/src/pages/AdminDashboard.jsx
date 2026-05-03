@@ -64,7 +64,7 @@ export default function AdminDashboard() {
         <h3 className="font-semibold">Pending Entrepreneur Approvals</h3>
         <div className="mt-4 space-y-3">
           {pendingEntrepreneurs.length === 0 && (
-            <p className="text-sm text-gray-500">No pending approvals.</p>
+            <p className="text-sm text-gray-500">No results found.</p>
           )}
           {pendingEntrepreneurs.map((entrepreneur) => (
             <div key={entrepreneur._id} className="flex items-center justify-between">

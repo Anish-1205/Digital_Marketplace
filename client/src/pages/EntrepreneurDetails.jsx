@@ -66,7 +66,7 @@ export default function EntrepreneurDetails() {
           <h3 className="font-semibold">Reviews</h3>
           <div className="mt-3 space-y-3">
             {reviews.length === 0 && (
-              <p className="text-sm text-gray-500">No reviews yet.</p>
+              <p className="text-sm text-gray-500">No results found.</p>
             )}
             {reviews.map((review) => (
               <div key={review._id} className="bg-white p-3 rounded-lg shadow-sm">
