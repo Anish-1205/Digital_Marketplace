@@ -1,11 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import { apiRequest } from "../api.js";
-import ServiceRequestForm from "../components/ServiceRequestForm.jsx";
 
-export default function EntrepreneurDetails() {
+export default function ProductDetails() {
   const { id } = useParams();
-  const [entrepreneur, setEntrepreneur] = useState(null);
+  const [product, setProduct] = useState(null);
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -15,11 +14,11 @@ export default function EntrepreneurDetails() {
       setLoading(true);
       setError(null);
       try {
-        const [entrepreneurData, reviewData] = await Promise.all([
-          apiRequest(`/entrepreneurs/${id}`),
-          apiRequest(`/reviews?entrepreneur=${id}`)
+        const [productData, reviewData] = await Promise.all([
+          apiRequest(`/products/${id}`),
+          apiRequest(`/reviews?product=${id}`)
         ]);
-        setEntrepreneur(entrepreneurData.data);
+        setProduct(productData.data);
         setReviews(reviewData.data);
       } catch (err) {
         setError(err.message);
@@ -39,7 +38,7 @@ export default function EntrepreneurDetails() {
   if (loading) {
     return (
       <div className="container mx-auto px-4 py-12">
-        <div className="h-56 bg-gray-100 animate-pulse rounded-xl" />
+        <div className="h-64 bg-gray-100 animate-pulse rounded-xl" />
       </div>
     );
   }
@@ -48,20 +47,25 @@ export default function EntrepreneurDetails() {
     return <p className="p-8 text-red-500">{error}</p>;
   }
 
-  if (!entrepreneur) return null;
+  if (!product) return null;
 
   return (
     <section className="container mx-auto px-4 py-12 grid md:grid-cols-2 gap-8">
       <div>
-        <h2 className="text-2xl font-semibold">{entrepreneur.businessName}</h2>
-        <p className="text-sm text-gray-500">{entrepreneur.location}</p>
-        <p className="mt-4 text-gray-700">{entrepreneur.description}</p>
-        <div className="mt-4 text-sm text-gray-600">
-          <p>Category: {entrepreneur.category}</p>
-          <p>Experience: {entrepreneur.experience} years</p>
-          <p>Starting at ₹{entrepreneur.basePrice}</p>
-          <p>Rating: {averageRating} ⭐ ({reviews.length} reviews)</p>
-        </div>
+        <img
+          src={product.imageUrl || "https://placehold.co/600x400"}
+          alt={product.name}
+          className="w-full rounded-xl object-cover"
+        />
+      </div>
+      <div>
+        <h2 className="text-2xl font-semibold">{product.name}</h2>
+        <p className="text-sm text-gray-500">{product.category}</p>
+        <p className="mt-2 text-lg font-semibold text-indigo-600">₹{product.price}</p>
+        <p className="mt-2 text-sm text-gray-500">Stock: {product.stock}</p>
+        <p className="mt-2 text-sm text-gray-600">
+          Rating: {averageRating} ⭐ ({reviews.length} reviews)
+        </p>
         <div className="mt-6">
           <h3 className="font-semibold">Reviews</h3>
           <div className="mt-3 space-y-3">
@@ -77,10 +81,6 @@ export default function EntrepreneurDetails() {
             ))}
           </div>
         </div>
-      </div>
-      <div className="bg-white p-4 rounded-xl shadow-sm">
-        <h3 className="font-semibold mb-3">Request a Service</h3>
-        <ServiceRequestForm entrepreneurId={entrepreneur._id} />
       </div>
     </section>
   );

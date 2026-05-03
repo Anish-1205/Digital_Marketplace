@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function ProductCard({ product }) {
   return (
     <div className="bg-white p-4 rounded-xl shadow-sm">
@@ -12,6 +14,12 @@ export default function ProductCard({ product }) {
         <span className="text-indigo-600 font-semibold">₹{product.price}</span>
         <span className="text-xs text-gray-400">Stock: {product.stock}</span>
       </div>
+      <Link
+        to={`/products/${product._id}`}
+        className="mt-3 inline-flex text-sm font-medium text-indigo-600"
+      >
+        View Details
+      </Link>
     </div>
   );
 }
